@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Схема процесса</title>
+    <title>Мой идеальный школьный день - настольная игра</title>
     <style>
+        /* Основные стили и сброс */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -15,254 +16,640 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-            padding: 20px;
-            min-height: 100vh;
+            background-color: #f9f9f9;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 20px;
         }
         
-        header {
+        section {
+            padding: 60px 0;
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 20px;
+        }
+        
+        /* Цвета */
+        .blue { color: #3498db; }
+        .orange { color: #e67e22; }
+        .green { color: #2ecc71; }
+        
+        /* Обложка */
+        .cover {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-            margin-bottom: 40px;
-            padding: 20px;
+            background-image: url('Cover.jpg');
+            background-size: cover;
         }
         
-        h1 {
-            font-size: 2.5rem;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        
-        .description {
-            font-size: 1.1rem;
-            color: #7f8c8d;
+        .cover-content {
+            position: relative;
+            z-index: 2;
             max-width: 800px;
-            margin: 0 auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
-        .flowchart {
+        .cover h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .cover-info {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #7f8c8d;
+        }
+        
+        .clock-gear {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            z-index: 1;
+            opacity: 0.2;
+        }
+        
+        .gear {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%233498db' d='M50 10l-5 15-16-5-5 16-15-5v20l15 5 5 16 16-5 5 15h20l5-15 16 5 5-16 15 5v-20l-15-5-5-16-16 5-5-15z'/%3E%3Ccircle cx='50' cy='50' r='15' fill='%23e67e22'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            animation: rotate 20s linear infinite;
+        }
+        
+        .gear:nth-child(2) {
+            top: 150px;
+            left: 150px;
+            width: 70px;
+            height: 70px;
+            animation-direction: reverse;
+            animation-duration: 15s;
+        }
+        
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Лозунг */
+        .slogan {
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .slogan h2 {
+            font-size: 2rem;
+            font-weight: 300;
+        }
+        
+        /* Секции */
+        .benefits, .goals, .skills, .components, .authors, .reviews {
+            background-color: white;
+        }
+        
+        .benefits-list, .goals-list, .skills-list, .components-list {
+            list-style-type: none;
+        }
+        
+        .benefits-list li, .goals-list li, .skills-list li, .components-list li {
+            margin-bottom: 20px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .benefits-list li:before, .goals-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #3498db;
+            font-size: 1.5rem;
+        }
+        
+        .skills-list li:before {
+            color: #2ecc71;
+        }
+        
+        .components-list li:before {
+            color: #e67e22;
+        }
+        
+        /* Авторы */
+        .authors-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        
+        .author {
+            flex: 1;
+            min-width: 300px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            position: relative;
-        }
-        
-        .step {
-            width: 220px;
-            padding: 15px;
-            margin: 20px 0;
             text-align: center;
-            border-radius: 6px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-            z-index: 2;
         }
         
-        .step:not(.cups)::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 20px;
-            background-color: #3498db;
+        .author-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-image: url('autors.jpg');
+			background-size: 200px, cover;
+			background-position: bottom right, center;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #7f8c8d;
         }
         
-        .start {
-            background-color: #2ecc71;
-            color: white;
+        /* FAQ */
+        .faq {
+            background-color: #f5f5f5;
         }
         
-        .cards {
-            background-color: #3498db;
-            color: white;
+        .faq-item {
+            margin-bottom: 20px;
         }
         
-        .cycle {
-            width: 90%;
-            max-width: 900px;
-            border: 2px dashed #3498db;
-            border-radius: 12px;
-            padding: 30px;
-            margin: 30px 0;
-            position: relative;
+        .faq-question {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #3498db;
+            cursor: pointer;
         }
         
-        .cycle-title {
-            position: absolute;
-            top: -15px;
-            left: 20px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
-            padding: 0 15px;
+        .faq-answer {
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Отзывы */
+        .reviews-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .review {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .review-text {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        
+        .review-author {
             font-weight: bold;
             color: #3498db;
         }
         
-        .cycle-steps {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            position: relative;
-			
-        }
-        
-        .cycle-step {
-            background-color: #fff;
-            margin: 15px;
-            flex: 1;
-            min-width: 150px;
-            transition: all 0.3s ease;
-			
-            border-radius: 8px;
-            padding: 12px;
-            text-align: center;
-            font-weight: 500;
-            color: #fff;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-			
-        }
-        
-        .cycle-step:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-        }
-        
-        .cycle-connector {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background-color: #3498db;
-            z-index: 1;
-        }
-        
-        .round-node {
-            background-color: #f1c40f;
-            border-radius: 50%;
-            width: 120px;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 30px;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            font-weight: bold;
-            text-align: center;
-            padding: 10px;
-        }
-        
-        .round-node::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 20px;
-            background-color: #3498db;
-        }
-        
-        .event {
-            background-color: #e74c3c;
-            color: white;
-        }
-        
-        .plan {
-            background-color: #3498db;
-            color: white;
-        }
-        
-        .opportunity {
-            background-color: #9b59b6;
-            color: white;
-        }
-        
-        .scoring {
-            background-color: #f1c40f;
-            color: white;
-        }
-        
-        .preparation {
-            background-color: #2ecc71;
-            color: white;
-        }
-        
-        .cups {
-            background-color: #e67e22;
-            color: white;
-        }
-        
-        .connector {
-            position: absolute;
-            background-color: #3498db;
-            z-index: 1;
-        }
-        
-        .vertical-connector {
-            width: 2px;
-        }
-        
-        .horizontal-connector {
-            height: 2px;
-        }
-        
+        /* Адаптивность */
         @media (max-width: 768px) {
-            .cycle-steps {
+            .cover h1 {
+                font-size: 2rem;
+            }
+            
+            .authors-container, .reviews-container {
                 flex-direction: column;
-                align-items: center;
-            }
-            
-            .cycle-step {
-                width: 80%;
-                margin: 10px 0;
-            }
-            
-            .cycle-connector {
-                display: none;
-            }
-            
-            .step {
-                width: 80%;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Схема игрового процесса</h1>
-            <p class="description">последовательность игровых действий</p>
-        </header>
-        
-        <div class="flowchart">
-            <div class="step start">Старт</div>
-            <div class="step cards">Подбор стартовых карточек</div>
-            
-            <div class="step cycle">
-                <div class="cycle-title">Повторить 5 раундов</div>
-                <div class="round-node">Цикл ходов одного дня</div>
-                
-                <div class="cycle-steps">
-                    <div class="cycle-step event">Событие дня</div>
-                    <div class="cycle-step plan">Планирование дня</div>
-                    <div class="cycle-step opportunity">Возможность</div>
-                    <div class="cycle-step scoring">Подсчет баллов дня</div>
-                    <div class="cycle-step preparation">Подготовка к следующему раунду</div>
-                    
-                    <div class="cycle-connector"></div>
+    <!-- Обложка -->
+    <section class="cover">
+        <div class="clock-gear">
+            <div class="gear"></div>
+            <div class="gear"></div>
+        </div>
+        <div class="cover-content">
+            <h1>Игра "Мой идеальный школьный день"</h1>
+            <p class="cover-info">7-10 лет, 2-4 игрока</p>
+        </div>
+    </section>
+
+    <!-- Лозунг -->
+    <section class="slogan">
+        <div class="container">
+            <h2>«Жизнь — это игра, учись планировать выигрыш!»</h2>
+        </div>
+    </section>
+
+    <!-- Почему игра нравится -->
+    <section class="benefits">
+        <div class="container">
+            <h2>Почему игра нравится младшим школьникам и их родителям</h2>
+            <ul class="benefits-list">
+                <li><span class="blue">Наводит на размышления</span> - игра побуждает задуматься о своих увлечениях</li>
+                <li><span class="blue">Учит через игру</span> - участники не просто узнают новые способы проводить время, но и ощущают необходимость смены активности и отдыха</li>
+                <li><span class="blue">Дарит радость</span> - благодаря своему юмористическому содержанию игра создает атмосферу лёгкости и удовольствия, увлекает ребят интересными ситуациями и забавными персонажами, обеспечивая позитивные эмоции и хорошее настроение</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Главная цель игры -->
+    <section class="goals">
+        <div class="container">
+            <h2>Главная цель игры</h2>
+            <ul class="goals-list">
+                <li>Научить ребят расставлять приоритеты</li>
+                <li>Грамотно управлять временем и энергией</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Чему учатся участники -->
+    <section class="skills">
+        <div class="container">
+            <h2>Чему учатся участники игры</h2>
+            <ul class="skills-list">
+                <li>Осознавать свои желания для развития</li>
+                <li>Грамотно планировать смену деятельности в ограниченном времени</li>
+                <li>С юмором реагировать на неожиданные события</li>
+                <li>Помнить, что всегда есть возможность все улучшить</li>
+                <li>Наслаждаться плодами усилий</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Комплект игры -->
+    <section class="components">
+        <div class="container">
+            <h2>В комплект игры входят</h2>
+            <ul class="components-list">
+                <li>Карточки героев</li>
+                <li>Колоды для игры (карточки активностей, отдыха, увлечений, возможности)</li>
+                <li>Карточки событий</li>
+                <li>Кубик для определения первого игрока</li>
+                <li>Жетон первого игрока</li>
+                <li>Жетоны кубков дня</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Авторы игры -->
+    <section class="authors">
+        <div class="container">
+            <h2>Авторы игры</h2>
+            <div class="authors-container">
+                <div class="author">
+                    <div class="author-img">Фото</div>
+                    <h3>Глеб и Дима</h3>
+                    <p>Ученики класса 2.3 ИТШ №777</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <h2>Часто задаваемые вопросы</h2>
+            <div class="faq-item">
+                <div class="faq-question">Как играть в игру?</div>
+                <div class="faq-answer">
+                    <html lang="ru">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Схема процесса</title>
+                        <style>
+                            * {
+                                box-sizing: border-box;
+                                margin: 0;
+                                padding: 0;
+                            }
+                            
+                            body {
+                                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                                line-height: 1.6;
+                                color: #333;
+                                background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+                                padding: 20px;
+                                min-height: 100vh;
+                            }
+                            
+                            .container {
+                                max-width: 1200px;
+                                margin: 0 auto;
+                            }
+                            
+                            header {
+                                text-align: center;
+                                margin-bottom: 40px;
+                                padding: 20px;
+                            }
+                            
+                            h1 {
+                                font-size: 2.5rem;
+                                color: #2c3e50;
+                                margin-bottom: 10px;
+                            }
+                            
+                            .description {
+                                font-size: 1.1rem;
+                                color: #7f8c8d;
+                                max-width: 800px;
+                                margin: 0 auto;
+                            }
+                            
+                            .flowchart {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                position: relative;
+                            }
+                            
+                            .step {
+                                width: 220px;
+                                padding: 15px;
+                                margin: 20px 0;
+                                text-align: center;
+                                border-radius: 6px;
+                                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                                position: relative;
+                                z-index: 2;
+                            }
+                            
+                            .step:not(.cups)::after {
+                                content: '';
+                                position: absolute;
+                                bottom: -20px;
+                                left: 50%;
+                                transform: translateX(-50%);
+                                width: 2px;
+                                height: 20px;
+                                background-color: #3498db;
+                            }
+                            
+                            .start {
+                                background-color: #2ecc71;
+                                color: white;
+                            }
+                            
+                            .cards {
+                                background-color: #3498db;
+                                color: white;
+                            }
+                            
+                            .cycle {
+                                width: 90%;
+                                max-width: 900px;
+                                border: 2px dashed #3498db;
+                                border-radius: 12px;
+                                padding: 30px;
+                                margin: 30px 0;
+                                position: relative;
+                            }
+                            
+                            .cycle-title {
+                                position: absolute;
+                                top: -15px;
+                                left: 20px;
+                                background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+                                padding: 0 15px;
+                                font-weight: bold;
+                                color: #3498db;
+                            }
+                            
+                            .cycle-steps {
+                                display: flex;
+                                flex-wrap: wrap;
+                                justify-content: space-around;
+                                position: relative;
+                                
+                            }
+                            
+                            .cycle-step {
+                                background-color: #fff;
+                                margin: 15px;
+                                flex: 1;
+                                min-width: 150px;
+                                transition: all 0.3s ease;
+                                
+                                border-radius: 8px;
+                                padding: 12px;
+                                text-align: center;
+                                font-weight: 500;
+                                color: #fff;
+                                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+                                
+                            }
+                            
+                            .cycle-step:hover {
+                                transform: translateY(-5px);
+                                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+                            }
+                            
+                            .cycle-connector {
+                                position: absolute;
+                                top: 50%;
+                                left: 0;
+                                right: 0;
+                                height: 2px;
+                                background-color: #3498db;
+                                z-index: 1;
+                            }
+                            
+                            .round-node {
+                                background-color: #f1c40f;
+                                border-radius: 50%;
+                                width: 120px;
+                                height: 120px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                margin: 0 auto 30px;
+                                position: relative;
+                                z-index: 2;
+                                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                                font-weight: bold;
+                                text-align: center;
+                                padding: 10px;
+                            }
+                            
+                            .round-node::after {
+                                content: '';
+                                position: absolute;
+                                bottom: -20px;
+                                left: 50%;
+                                transform: translateX(-50%);
+                                width: 2px;
+                                height: 20px;
+                                background-color: #3498db;
+                            }
+                            
+                            .event {
+                                background-color: #e74c3c;
+                                color: white;
+                            }
+                            
+                            .plan {
+                                background-color: #3498db;
+                                color: white;
+                            }
+                            
+                            .opportunity {
+                                background-color: #9b59b6;
+                                color: white;
+                            }
+                            
+                            .scoring {
+                                background-color: #f1c40f;
+                                color: white;
+                            }
+                            
+                            .preparation {
+                                background-color: #2ecc71;
+                                color: white;
+                            }
+                            
+                            .cups {
+                                background-color: #e67e22;
+                                color: white;
+                            }
+                            
+                            .connector {
+                                position: absolute;
+                                background-color: #3498db;
+                                z-index: 1;
+                            }
+                            
+                            .vertical-connector {
+                                width: 2px;
+                            }
+                            
+                            .horizontal-connector {
+                                height: 2px;
+                            }
+                            
+                            @media (max-width: 768px) {
+                                .cycle-steps {
+                                    flex-direction: column;
+                                    align-items: center;
+                                }
+                                
+                                .cycle-step {
+                                    width: 80%;
+                                    margin: 10px 0;
+                                }
+                                
+                                .cycle-connector {
+                                    display: none;
+                                }
+                                
+                                .step {
+                                    width: 80%;
+                                }
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="container">
+                            <header>
+                                <h1>Схема игрового процесса</h1>
+                                <p class="description">последовательность игровых действий</p>
+                            </header>
+                            
+                            <div class="flowchart">
+                                <div class="step start">Старт</div>
+                                <div class="step cards">Подбор стартовых карточек</div>
+                                
+                                <div class="step cycle">
+                                    <div class="cycle-title">Повторить 5 раундов</div>
+                                    <div class="round-node">Цикл ходов одного дня</div>
+                                    
+                                    <div class="cycle-steps">
+                                        <div class="cycle-step event">Событие дня</div>
+                                        <div class="cycle-step plan">Планирование дня</div>
+                                        <div class="cycle-step opportunity">Возможность</div>
+                                        <div class="cycle-step scoring">Подсчет баллов дня</div>
+                                        <div class="cycle-step preparation">Подготовка к следующему раунду</div>
+                                        
+                                        <div class="cycle-connector"></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="step cups">Подсчет кубков</div>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
                 </div>
             </div>
             
-            <div class="step cups">Подсчет кубков</div>
+            <div class="faq-item">
+                <div class="faq-question">Будет мне интересно играть, если мне больше 10 лет?</div>
+                <div class="faq-answer">
+                    Если тебе больше 10 лет, то скорее всего ты уже хорошо умеешь планировать свой школьный день и понимаешь какие увлечения помогут тебе достичь свои цели. Но если ты просто хочешь весело провести время с двумя или тремя друзьями, то вам тоже может понравится игра «Мой идеальный школьный день».
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Где можно найти игру «Мой идеальный школьный день»?</div>
+                <div class="faq-answer">
+                    Если ты учишься в ИТШ 777, то скоро в медиатеке появится экземпляр игры «Мой идеальный школьный день».
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Отзывы -->
+    <section class="reviews">
+        <div class="container">
+            <h2>Что говорят об игре ребята</h2>
+            <div class="reviews-container">
+                <div class="review">
+                    <p class="review-text">"Мне очень понравилась эта игра! Теперь я лучше понимаю, как планировать свой день, чтобы всё успевать и находить время для любимых занятий."</p>
+                    <p class="review-author">Мария, 9 лет</p>
+                </div>
+                <div class="review">
+                    <p class="review-text">"Игра просто супер! Мы с друзьями весело проводим время, смеёмся над неожиданными событиями и учимся распределять время. Хочу играть каждый день!"</p>
+                    <p class="review-author">Артём, 10 лет</p>
+                </div>
+                <div class="review">
+                    <p class="review-text">"Раньше мне было сложно решать, что делать после школы - уроки, игры или отдых. Теперь я лучше понимаю, как совмещать все важные дела и находить время для себя."</p>
+                    <p class="review-author">София, 8 лет</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Простой скрипт для раскрытия ответов в FAQ
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                answer.style.display = answer.style.display === 'none' ? 'block' : 'none';
+            });
+        });
+    </script>
 </body>
 </html>
