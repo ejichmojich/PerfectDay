@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Схема процесса</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .flowchart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        .step {
+            width: 220px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            border-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step:not(.cups)::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background-color: #3498db;
+        }
+        
+        .start {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .cards {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .cycle {
+            width: 90%;
+            max-width: 900px;
+            border: 2px dashed #3498db;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .cycle-title {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            padding: 0 15px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .cycle-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            position: relative;
+			
+        }
+        
+        .cycle-step {
+            background-color: #fff;
+            margin: 15px;
+            flex: 1;
+            min-width: 150px;
+            transition: all 0.3s ease;
+			
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            font-weight: 500;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+			
+        }
+        
+        .cycle-step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .cycle-connector {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #3498db;
+            z-index: 1;
+        }
+        
+        .round-node {
+            background-color: #f1c40f;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .round-node::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background-color: #3498db;
+        }
+        
+        .event {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .plan {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .opportunity {
+            background-color: #9b59b6;
+            color: white;
+        }
+        
+        .scoring {
+            background-color: #f1c40f;
+            color: white;
+        }
+        
+        .preparation {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .cups {
+            background-color: #e67e22;
+            color: white;
+        }
+        
+        .connector {
+            position: absolute;
+            background-color: #3498db;
+            z-index: 1;
+        }
+        
+        .vertical-connector {
+            width: 2px;
+        }
+        
+        .horizontal-connector {
+            height: 2px;
+        }
+        
+        @media (max-width: 768px) {
+            .cycle-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cycle-step {
+                width: 80%;
+                margin: 10px 0;
+            }
+            
+            .cycle-connector {
+                display: none;
+            }
+            
+            .step {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Схема игрового процесса</h1>
+            <p class="description">последовательность игровых действий</p>
+        </header>
+        
+        <div class="flowchart">
+            <div class="step start">Старт</div>
+            <div class="step cards">Подбор стартовых карточек</div>
+            
+            <div class="step cycle">
+                <div class="cycle-title">Повторить 5 раундов</div>
+                <div class="round-node">Цикл ходов одного дня</div>
+                
+                <div class="cycle-steps">
+                    <div class="cycle-step event">Событие дня</div>
+                    <div class="cycle-step plan">Планирование дня</div>
+                    <div class="cycle-step opportunity">Возможность</div>
+                    <div class="cycle-step scoring">Подсчет баллов дня</div>
+                    <div class="cycle-step preparation">Подготовка к следующему раунду</div>
+                    
+                    <div class="cycle-connector"></div>
+                </div>
+            </div>
+            
+            <div class="step cups">Подсчет кубков</div>
+        </div>
+    </div>
+</body>
+</html>
