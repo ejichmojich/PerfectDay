@@ -90,16 +90,11 @@
             z-index: 2;
             max-width: 800px;
             padding: 30px;
-            background-color: rgba(255, 255, 255, 0.92);
+            background-color: rgba(255, 255, 255, 0.5);
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             border: 5px solid var(--color-blue);
-            animation: pulse 2s infinite alternate;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.02); }
+            /* Убрана анимация pulse */
         }
         
         .cover h1 {
@@ -124,29 +119,78 @@
             width: 300px;
             height: 300px;
             z-index: 1;
-            opacity: 0.2;
+            opacity: 0.5;
         }
         
-        .gear {
+        .clock {
             position: absolute;
-            width: 100px;
-            height: 100px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%233498db' d='M50 10l-5 15-16-5-5 16-15-5v20l15 5 5 16 16-5 5 15h20l5-15 16 5 5-16 15 5v-20l-15-5-5-16-16 5-5-15z'/%3E%3Ccircle cx='50' cy='50' r='15' fill='%23e67e22'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            animation: rotate 20s linear infinite;
+            width: 250px;
+            height: 250px;
+            top: 25px;
+            left: 25px;
         }
         
-        .gear:nth-child(2) {
-            top: 150px;
-            left: 150px;
-            width: 70px;
-            height: 70px;
-            animation-direction: reverse;
-            animation-duration: 15s;
+        .clock-center {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #333;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        
+        .hour-hand {
+            position: absolute;
+            width: 8px;
+            height: 80px;
+            background: #3498db;
+            top: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            transform: translate(-50%, -100%) rotate(0deg);
+            animation: rotate-hour 180s linear infinite; /* Замедлено в 5 раз */
+            border-radius: 8px 8px 0 0;
+        }
+        
+        .minute-hand {
+            position: absolute;
+            width: 6px;
+            height: 110px;
+            background: #3498db;
+            top: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            transform: translate(-50%, -100%) rotate(0deg);
+            animation: rotate-minute 30s linear infinite; /* Замедлено в 5 раз */
+            border-radius: 6px 6px 0 0;
+        }
+        
+        .second-hand {
+            position: absolute;
+            width: 3px;
+            height: 120px;
+            background: #e74c3c;
+            top: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            transform: translate(-50%, -100%) rotate(0deg);
+            animation: rotate 6s linear infinite; /* Оставлено без изменений */
+            border-radius: 3px 3px 0 0;
         }
         
         @keyframes rotate {
-            100% { transform: rotate(360deg); }
+            100% { transform: translate(-50%, -100%) rotate(360deg); }
+        }
+        
+        @keyframes rotate-minute {
+            100% { transform: translate(-50%, -100%) rotate(360deg); }
+        }
+        
+        @keyframes rotate-hour {
+            100% { transform: translate(-50%, -100%) rotate(360deg); }
         }
         
         /* Лозунг */
@@ -218,11 +262,7 @@
             border-radius: 10px;
             font-size: 1.1rem;
             box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-        }
-        
-        .benefits-list li:hover, .goals-list li:hover, .skills-list li:hover, .components-list li:hover {
-            transform: translateY(-5px);
+            /* Убрана анимация при наведении для неинтерактивных элементов */
         }
         
         .benefits-list li:before, .goals-list li:before, .skills-list li:before, .components-list li:before {
@@ -373,11 +413,7 @@
             padding: 25px;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease;
-        }
-        
-        .author:hover {
-            transform: translateY(-10px);
+            /* Убрана анимация при наведении для неинтерактивных элементов */
         }
         
         .author-img {
@@ -485,11 +521,7 @@
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             position: relative;
-            transition: transform 0.3s ease;
-        }
-        
-        .review:hover {
-            transform: translateY(-5px);
+            /* Убрана анимация при наведении для неинтерактивных элементов */
         }
         
         .review:before {
@@ -558,6 +590,28 @@
             h2 {
                 font-size: 1.8rem;
             }
+            
+            .clock {
+                width: 180px;
+                height: 180px;
+                top: 60px;
+                left: 60px;
+            }
+            
+            .hour-hand {
+                height: 60px;
+                width: 6px;
+            }
+            
+            .minute-hand {
+                height: 85px;
+                width: 5px;
+            }
+            
+            .second-hand {
+                height: 95px;
+                width: 2px;
+            }
         }
     </style>
 </head>
@@ -565,8 +619,12 @@
     <!-- Обложка -->
     <section class="cover">
         <div class="clock-gear">
-            <div class="gear"></div>
-            <div class="gear"></div>
+            <div class="clock">
+                <div class="hour-hand"></div>
+                <div class="minute-hand"></div>
+                <div class="second-hand"></div>
+                <div class="clock-center"></div>
+            </div>
         </div>
         <div class="cover-content">
             <h1>Игра "Мой идеальный школьный день"</h1>
@@ -588,7 +646,7 @@
             <ul class="benefits-list">
                 <li><span class="blue">Наводит на размышления</span> - игра побуждает задуматься о своих увлечениях</li>
                 <li><span class="green">Учит через игру</span> - участники не просто узнают новые способы проводить время, но и ощущают необходимость смены активности и отдыха</li>
-                <li><span class="orange">Дарит радость</span> - благодаря своему юмористическому содержанию игра создает атмосферу лёгкости и удовольствия, увлекает ребят интересными ситуациями и забавными персонажами, обеспечивая позитивные эмоции и хорошее настроение</li>
+                <li><span class="orange">Дарит радость</span> - благодаря своему юмористическому содержанию игра создает атмосферу лёгкости и удовольствия, увлекает ребят интересными ситуаками и забавными персонажами, обеспечивая позитивные эмоции и хорошее настроение</li>
             </ul>
         </div>
     </section>
@@ -596,10 +654,10 @@
     <!-- Главная цель игры -->
     <section class="goals">
         <div class="container">
-            <h2>Главная цель игры</h2>
+            <h2>Главная цель игры научить ребят</h2>
             <ul class="goals-list">
-                <li>Научить ребят расставлять приоритеты</li>
-                <li>Грамотно управлять временем и энергией</li>
+                <li>расставлять приоритеты</li>
+                <li>грамотно управлять временем и энергией</li>
             </ul>
         </div>
     </section>
@@ -610,7 +668,7 @@
             <h2>Чему учатся участники игры</h2>
             <ul class="skills-list">
                 <li>Осознавать свои желания для развития</li>
-                <li>Грамотно планировать смену деятельности в ограниченном времени</li>
+                <li>Планировать смену деятельности в ограниченном времени</li>
                 <li>С юмором реагировать на неожиданные события</li>
                 <li>Помнить, что всегда есть возможность все улучшить</li>
                 <li>Наслаждаться плодами усилий</li>
@@ -624,7 +682,7 @@
             <h2>В комплект игры входят</h2>
             <ul class="components-list">
                 <li>Карточки героев</li>
-                <li>Колоды для игры (карточки активностей, отдыха, увлечений, возможности)</li>
+                <li>Колоды для игры (карточки активностей, отдыха, увлечений, возможностей)</li>
                 <li>Карточки событий</li>
                 <li>Кубик для определения первого игрока</li>
                 <li>Жетон первого игрока</li>
@@ -741,9 +799,6 @@
                 }
             });
         });
-        
-        // Открываем первый вопрос по умолчанию
-        //document.querySelector('.faq-item').classList.add('active');
     </script>
 </body>
 </html>
